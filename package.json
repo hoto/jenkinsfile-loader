@@ -4,11 +4,13 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
+    "start" : "node src/app.js",
     "test": "jest"
   },
   "author": "Andrzej Rehmann",
   "license": "MIT",
   "dependencies": {
+    "axios": "0.18.0",
     "jest": "23.6.0"
   }
 }

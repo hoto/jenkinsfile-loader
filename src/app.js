@@ -1,9 +1,11 @@
-function hello(name) {
-  return `Hello ${name}`
-}
+const axios = require('axios')
 
-const App = {
-  hello
-}
+axios.get('http://localhost:8080/api/json')
+  .then(response => {
+    console.log(response.data)
+  })
+  .catch(error => {
+    console.log('Error...')
+    console.log(error)
+  })
 
-module.exports.App = App
