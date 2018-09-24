@@ -4,13 +4,14 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "start" : "node src/app.js",
+    "start": "node src/app.js",
     "test": "jest"
   },
   "author": "Andrzej Rehmann",
   "license": "MIT",
   "dependencies": {
     "axios": "0.18.0",
+    "fs-promise": "2.0.3",
     "jest": "23.6.0"
   }
 }
