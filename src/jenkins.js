@@ -1,7 +1,12 @@
 const axios = require('axios')
 
-function createJob({jobName}) {
-  axios.get('url')
+function createJob({name, config}) {
+  axios({
+    method: 'POST',
+    headers: {'content-type': 'text/xml'},
+    data: config,
+    url: `/createItem?name=${name}`
+  })
 }
 
 module.exports = {
