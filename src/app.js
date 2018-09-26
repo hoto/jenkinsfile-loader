@@ -24,7 +24,7 @@ fs
 
 function checkIfJobExists({jobName}) {
   log.info(`Checking if job ${jobName} exists...`)
-  jenkins.get(`http://localhost:8080//api/json?tree=jobs[name]`)
+  jenkins.get(`/api/json?tree=jobs[name]`)
 
 }
 
