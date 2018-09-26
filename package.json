@@ -12,7 +12,9 @@
   "dependencies": {
     "axios": "0.18.0",
     "colors": "1.3.2",
-    "fs-promise": "2.0.3",
+    "fs-promise": "2.0.3"
+  },
+  "devDependencies": {
     "jest": "23.6.0"
   }
 }
