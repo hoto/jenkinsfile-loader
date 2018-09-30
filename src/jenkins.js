@@ -1,5 +1,5 @@
 const axios = require('axios')
-const log = require('./logger.js')
+const log = require('./log.js')
 
 const jenkinsUrl = 'http://localhost:8080'
 

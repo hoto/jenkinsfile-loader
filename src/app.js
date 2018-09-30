@@ -1,6 +1,6 @@
 const fs = require('fs-promise')
 const jenkins = require('./jenkins.js')
-const log = require('./logger.js')
+const log = require('./log.js')
 
 const configFile = process.cwd() + '/test/resources/config.xml'
 const name = 'my-new-job';

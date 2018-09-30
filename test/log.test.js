@@ -1,4 +1,4 @@
-const log = require('../src/logger.js')
+const log = require('../src/log.js')
 const colors = require('colors/safe')
 
 jest.mock('colors/safe')
