@@ -16,7 +16,6 @@ function error() {
   console.log(colors.red(format(arguments)))
 }
 
-
 function format() {
   return `${time()} ${Array.prototype.slice.call(arguments[0]).join(' ')}`
 }
