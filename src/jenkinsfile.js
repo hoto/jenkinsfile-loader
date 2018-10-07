@@ -1,5 +1,5 @@
-const configXml = ({sanitizedJenkinsfile}) => `
-<?xml version='1.1' encoding='UTF-8'?>
+const configXml = ({sanitizedJenkinsfile}) =>
+`<?xml version='1.1' encoding='UTF-8'?>
 <flow-definition plugin="workflow-job@2.25">
   <description></description>
   <keepDependencies>false</keepDependencies>
