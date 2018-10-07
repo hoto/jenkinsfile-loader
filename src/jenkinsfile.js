@@ -15,7 +15,7 @@ const configXml = ({sanitizedJenkinsfile}) => `
 </flow-definition>
 `
 
-function toXml({jenkinsfile}) {
+function toJobConfig({jenkinsfile}) {
   const sanitizedJenkinsfile = sanitize({code: jenkinsfile})
   return configXml({sanitizedJenkinsfile})
 }
@@ -42,6 +42,6 @@ function sanitizeHTML(str) {
 }
 
 module.exports = {
-  toXml,
+  toJobConfig,
   sanitize
 }
