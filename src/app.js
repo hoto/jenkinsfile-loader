@@ -4,7 +4,6 @@ const log = require('./log.js')
 const jenkinsfile = require('./jenkinsfile.js')
 const chokidar = require('chokidar')
 
-const jenkinsfilePath = process.cwd() + '/test/resources/pipeline.original'
 const dirToWatch = process.cwd() + '/jenkinsfiles'
 
 const startWatching = () => {
@@ -58,6 +57,5 @@ const createOrUpdateJob = ({jenkinsfilePath, jobName}) => {
     )
     .catch(log.error)
 }
-
 
 startWatching()
