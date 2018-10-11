@@ -20,7 +20,7 @@ function format() {
   return `${time()} ${Array.prototype.slice.call(arguments[0]).join(' ')}`
 }
 
-function time() {
+const time = () => {
   const HH = new Date().getHours()
   const MM = new Date().getMinutes()
   const SS = new Date().getSeconds()

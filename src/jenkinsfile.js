@@ -1,5 +1,5 @@
 const configXml = ({sanitizedJenkinsfile}) =>
-`<?xml version='1.1' encoding='UTF-8'?>
+  `<?xml version='1.1' encoding='UTF-8'?>
 <flow-definition plugin="workflow-job@2.25">
   <description></description>
   <keepDependencies>false</keepDependencies>
@@ -15,16 +15,16 @@ const configXml = ({sanitizedJenkinsfile}) =>
 </flow-definition>
 `
 
-function toJobConfig({jenkinsfile}) {
+const toJobConfig = ({jenkinsfile}) => {
   const sanitizedJenkinsfile = sanitize({code: jenkinsfile})
   return configXml({sanitizedJenkinsfile})
 }
 
-function sanitize({code}) {
+const sanitize = ({code}) => {
   return sanitizeHTML(code)
 }
 
-function sanitizeHTML(str) {
+const sanitizeHTML = (str) => {
   const rAmp = /&/g;
   const rLt = /</g;
   const rGt = />/g;

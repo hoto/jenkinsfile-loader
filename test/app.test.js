@@ -1,6 +1,6 @@
 const app = require('../src/app.js')
 
-describe('jenkinsfileLoader should', () => {
+describe('app should', () => {
 
   it('update an existing job', () => {
 

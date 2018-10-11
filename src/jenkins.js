@@ -3,36 +3,45 @@ const log = require('./log.js')
 
 const jenkinsUrl = 'http://localhost:8080'
 
-function checkIfJobExists({name}) {
+const checkIfJobExists = ({jobName}) => {
   return axios.get(`${jenkinsUrl}/api/json`, {headers: {'Content-Type': 'application/json'}})
     .then(response => response.data.jobs)
     .then(jobs => jobs.map(job => job.name))
     .then(jobNamesObjects => jobNamesObjects.reduce((nameA, nameB) => nameA.concat(nameB), []))
-    .then(jobNames => (jobNames.indexOf(name) > -1))
+    .then(jobNames => (jobNames.indexOf(jobName) > -1))
 }
 
-function updateJob({name, config}) {
-  log.info(`Updating job [${name}]...`)
+const updateJob = ({jobName, config}) => {
+  log.info(`Updating job ${jobName}...`)
   return axios({
     method: 'POST',
     headers: {'content-type': 'text/xml'},
     data: config,
-    url: `${jenkinsUrl}/job/${name}/config.xml`
+    url: `${jenkinsUrl}/job/${jobName}/config.xml`
   })
 }
 
-function createJob({name, config}) {
-  log.info(`Creating new job [${name}]...`)
+const createJob = ({jobName, config}) => {
+  log.info(`Creating new job ${jobName}...`)
   return axios({
     method: 'POST',
     headers: {'content-type': 'text/xml'},
     data: config,
-    url: `${jenkinsUrl}/createItem?name=${name}`
+    url: `${jenkinsUrl}/createItem?name=${jobName}`
+  })
+}
+
+const deleteJob = ({jobName}) => {
+  log.info(`Deleting job ${jobName}...`)
+  return axios({
+    method: 'POST',
+    url: `${jenkinsUrl}/job/${jobName}/doDelete`
   })
 }
 
 module.exports = {
   checkIfJobExists,
   updateJob,
-  createJob
+  createJob,
+  deleteJob
 }
