@@ -1,5 +1,5 @@
 const fs = require('fs-promise')
-const jenkins = require('./jenkins.js')
+const jenkinsApi = require('./jenkinsApi.js')
 const log = require('./log.js')
 const jenkinsfile = require('./jenkinsfile.js')
 const config = require('./config.js')
@@ -33,7 +33,7 @@ const deleteJob = ({filePath}) => {
   const filenameWithExt = getFilenameWithExtension(filePath)
   const jobName = getFilenameWithoutExtension(filePath)
   log.debug(`File ${filenameWithExt} deleted...`)
-  jenkins.deleteJob({jobName})
+  jenkinsApi.deleteJob({jobName})
 }
 
 const getFilenameWithExtension = (path) => path.split('/').pop()
@@ -45,11 +45,11 @@ const createOrUpdateJob = ({jenkinsfilePath, jobName}) => {
     .readFile(jenkinsfilePath)
     .then(file => file.toString())
     .then(content => jenkinsfile.toJobConfig({jenkinsfile: content}))
-    .then(config => jenkins.checkIfJobExists({jobName})
+    .then(config => jenkinsApi.checkIfJobExists({jobName})
       .then(jobExists =>
         jobExists ?
-          jenkins.updateJob({jobName, config}) :
-          jenkins.createJob({jobName, config})
+          jenkinsApi.updateJob({jobName, config}) :
+          jenkinsApi.createJob({jobName, config})
       )
     )
     .catch(log.error)
