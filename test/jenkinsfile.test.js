@@ -3,11 +3,11 @@ const fs = require('fs-promise')
 
 describe('jenkinsfile should', () => {
 
-  it('escape all html chars when transforming to config xml', async () => {
+  it('escape all html chars', async () => {
     const original = await loadFile({name: 'pipeline.original'})
     const sanitized = await loadFile({name: 'pipeline.sanitized'})
 
-    const response = jenkinsfile.sanitize({code: original})
+    const response = jenkinsfile.sanitize({str: original})
 
     expect(response).toEqual(sanitized)
   })
