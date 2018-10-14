@@ -23,7 +23,7 @@ const updateJob = ({jobName, config}) => {
 }
 
 const createJob = ({jobName, config}) => {
-  log.info(`Creating new job ${jobName}...`)
+  log.info(`Creating job ${jobName}...`)
   return axios({
     method: 'POST',
     headers: {'content-type': 'text/xml'},

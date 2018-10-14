@@ -38,7 +38,7 @@ const deleteJob = ({filePath}) => {
 
 const getFilenameWithExtension = (path) => path.split('/').pop()
 const getFilenameWithoutExtension = (path) => getFilenameWithExtension(path).split('.')[0]
-const runAppForever = () => process.stdin.resume();
+const runAppForever = () => process.stdin.resume()
 
 const createOrUpdateJob = ({jenkinsfilePath, jobName}) => {
   fs
