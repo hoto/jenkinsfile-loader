@@ -1,23 +1,8 @@
-const toJobConfig = ({jenkinsfile}) => {
-  const sanitizedJenkinsfile = sanitize({str: jenkinsfile})
-  return configXml({sanitizedJenkinsfile})
-}
+const xmlSanitizer = require('./xmlSanitizer.js')
 
-const sanitize = ({str}) => {
-  const rAmp = /&/g;
-  const rLt = /</g;
-  const rGt = />/g;
-  const rApos = /\'/g;
-  const rQuot = /\"/g;
-  const hChars = /[&<>\"\']/;
-  if (hChars.test(String(str)))
-    return str
-      .replace(rAmp, '&amp;')
-      .replace(rLt, '&lt;')
-      .replace(rGt, '&gt;')
-      .replace(rApos, '&apos;')
-      .replace(rQuot, '&quot;');
-  return str;
+const toJobConfig = ({jenkinsfile}) => {
+  const sanitizedJenkinsfile = xmlSanitizer.sanitize({str: jenkinsfile})
+  return configXml({sanitizedJenkinsfile})
 }
 
 const configXml = ({sanitizedJenkinsfile}) =>
@@ -38,6 +23,5 @@ const configXml = ({sanitizedJenkinsfile}) =>
 `
 
 module.exports = {
-  toJobConfig,
-  sanitize
+  toJobConfig
 }

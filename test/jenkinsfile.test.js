@@ -1,20 +1,11 @@
 const jenkinsfile = require('../src/jenkinsfile.js')
-const fs = require('fs-promise')
+const resources = require('./resources.js')
 
 describe('jenkinsfile should', () => {
 
-  it('escape all html chars', async () => {
-    const original = await loadFile({name: 'pipeline.original'})
-    const sanitized = await loadFile({name: 'pipeline.sanitized'})
-
-    const response = jenkinsfile.sanitize({str: original})
-
-    expect(response).toEqual(sanitized)
-  })
-
   it('transform jenkinsfile to a job config', async () => {
-    const pipelineCode = await loadFile({name: 'pipeline.original'})
-    const jobConfig = await loadFile({name: 'jobConfig.xml'})
+    const pipelineCode = await resources.read({name: 'pipeline.original'})
+    const jobConfig = await resources.read({name: 'jobConfig.xml'})
 
     const response = jenkinsfile.toJobConfig({jenkinsfile: pipelineCode})
 
@@ -22,9 +13,3 @@ describe('jenkinsfile should', () => {
   })
 })
 
-function loadFile({name}) {
-  const filePath = process.cwd() + `/test/resources/${name}`
-  return fs
-    .readFile(filePath)
-    .then(file => file.toString())
-}
