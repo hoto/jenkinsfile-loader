@@ -1,7 +1,8 @@
 const axios = require('axios')
 const log = require('./log.js')
+const config = require('./config.js')
 
-const jenkinsUrl = 'http://localhost:8080'
+const jenkinsUrl = config.jenkinsUrl
 
 const checkIfJobExists = ({jobName}) => {
   return axios.get(`${jenkinsUrl}/api/json`, {headers: {'Content-Type': 'application/json'}})

@@ -2,20 +2,17 @@ const fs = require('fs-promise')
 const jenkins = require('./jenkins.js')
 const log = require('./log.js')
 const jenkinsfile = require('./jenkinsfile.js')
-const chokidar = require('chokidar')
+const config = require('./config.js')
+const watcher = require('./watcher.js')
 
-const dirToWatch = process.cwd() + '/jenkinsfiles'
+const jenkinsfilesDir = config.jenkinsfilesDir
 
 const startWatching = () => {
-  const watcher = chokidar.watch(dirToWatch, {
-    ignored: /(^|[\/\\])\../,
-    persistent: true
-  })
   watcher
+    .watch({dir: jenkinsfilesDir})
     .on('add', filePath => createJob({filePath}))
     .on('change', filePath => updateJob({filePath}))
     .on('unlink', filePath => deleteJob({filePath}))
-  runAppForever()
 }
 
 const createJob = ({filePath}) => {
@@ -59,3 +56,4 @@ const createOrUpdateJob = ({jenkinsfilePath, jobName}) => {
 }
 
 startWatching()
+runAppForever()
