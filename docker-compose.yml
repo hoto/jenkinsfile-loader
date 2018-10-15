@@ -6,11 +6,4 @@ services:
   rapid-jenkinsfile-loader:
     image: docker.io/hoto/rapid-jenkinsfile-loader:latest
     build: .
-    volumes:
-    - type: bind
-      source: ${PWD}/src
-      target: /usr/local/src/src
-      read_only: true
-    network_mode: host
-    tty: true
 

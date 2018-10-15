@@ -1,0 +1,23 @@
+---
+version: '3.5'
+
+services:
+
+  rapid-jenkinsfile-loader:
+    build: .
+    environment:
+      JENKINS_URL: 'http://localhost:8080'
+      JENKINSFILES_DIR: '/usr/local/src/jenkinsfile-examples'
+      DEBUG: 'true'
+    volumes:
+    - type: bind
+      source: ${PWD}/src
+      target: /usr/local/src/src
+      read_only: true
+    - type: bind
+      source: ${PWD}/jenkinsfile-examples
+      target: /usr/local/src/jenkinsfile-examples
+      read_only: true
+    network_mode: host
+    tty: true
+
