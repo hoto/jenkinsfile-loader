@@ -10,35 +10,25 @@ const jenkinsfilesDir = config.jenkinsfilesDir
 const startWatching = () => {
   watcher
     .watch({dir: jenkinsfilesDir})
-    .on('add', filePath => createJob({filePath}))
-    .on('change', filePath => updateJob({filePath}))
-    .on('unlink', filePath => deleteJob({filePath}))
+    .on('add', createJob)
+    .on('change', updateJob)
+    .on('unlink', deleteJob)
 }
 
-const createJob = ({filePath}) => {
-  const filenameWithExt = getFilenameWithExtension(filePath)
-  const jobName = getFilenameWithoutExtension(filePath)
+const createJob = ({filePath, filenameWithExt, filenameWithoutExt}) => {
   log.debug(`File ${filenameWithExt} added...`)
-  createOrUpdateJob({jenkinsfilePath: filePath, jobName})
+  createOrUpdateJob({jenkinsfilePath: filePath, jobName: filenameWithoutExt})
 }
 
-const updateJob = ({filePath}) => {
-  const filenameWithExt = getFilenameWithExtension(filePath)
-  const jobName = getFilenameWithoutExtension(filePath)
+const updateJob = ({filePath, filenameWithExt, filenameWithoutExt}) => {
   log.debug(`File ${filenameWithExt} updated...`)
-  createOrUpdateJob({jenkinsfilePath: filePath, jobName})
+  createOrUpdateJob({jenkinsfilePath: filePath, jobName: filenameWithoutExt})
 }
 
-const deleteJob = ({filePath}) => {
-  const filenameWithExt = getFilenameWithExtension(filePath)
-  const jobName = getFilenameWithoutExtension(filePath)
+const deleteJob = ({filePath, filenameWithExt, filenameWithoutExt}) => {
   log.debug(`File ${filenameWithExt} deleted...`)
-  jenkinsApi.deleteJob({jobName})
+  jenkinsApi.deleteJob({jobName: filenameWithoutExt})
 }
-
-const getFilenameWithExtension = (path) => path.split('/').pop()
-const getFilenameWithoutExtension = (path) => getFilenameWithExtension(path).split('.')[0]
-const runAppForever = () => process.stdin.resume()
 
 const createOrUpdateJob = ({jenkinsfilePath, jobName}) => {
   fs
@@ -54,6 +44,8 @@ const createOrUpdateJob = ({jenkinsfilePath, jobName}) => {
     )
     .catch(log.error)
 }
+
+const runAppForever = () => process.stdin.resume()
 
 startWatching()
 runAppForever()
