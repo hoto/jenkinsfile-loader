@@ -9,22 +9,19 @@ const watch = ({dir}) => {
   const originalWatcher = chokidar.watch(dir, chokidarOptions)
   const wrapper = {
     on: (eventName, handlerFn) => {
-      originalWatcher.on(eventName, filePath => curry(handlerFn)(filePath))
+      originalWatcher.on(eventName, filePath => breakdownFilePath(handlerFn)(filePath))
       return wrapper
     }
   }
   return wrapper
 }
 
-const curry = (handlerFn) => {
-  const internal = (filePath) => {
-    console.log('got: ', filePath)
-    const filenameWithExt = getFilenameWithExtension(filePath)
-    const filenameWithoutExt = getFilenameWithoutExtension(filePath)
-    return handlerFn({filePath, filenameWithExt, filenameWithoutExt})
-  }
-  return internal
+const breakdownFilePath = (handlerFn) => (filePath) => {
+  const filenameWithExt = getFilenameWithExtension(filePath)
+  const filenameWithoutExt = getFilenameWithoutExtension(filePath)
+  return handlerFn({filePath, filenameWithExt, filenameWithoutExt})
 }
+
 
 const getFilenameWithExtension = (path) => path.split('/').pop()
 
