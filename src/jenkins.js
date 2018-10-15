@@ -1,22 +1,16 @@
-const fs = require('fs-promise')
-const log = require('./log.js')
 const jenkinsApi = require('./jenkinsApi.js')
 const jenkinsfile = require('./jenkinsfile.js')
+const log = require('./log.js')
 
-const createJob = ({filePath, filenameWithExt, filenameWithoutExt}) => {
-  log.debug(`File ${filenameWithExt} added...`)
-  createOrUpdateJob({jenkinsfilePath: filePath, jobName: filenameWithoutExt})
-}
+const createJob = ({file, filenameWithoutExt}) =>
+  createOrUpdateJob({file, jobName: filenameWithoutExt})
 
-const updateJob = ({filePath, filenameWithExt, filenameWithoutExt}) => {
-  log.debug(`File ${filenameWithExt} updated...`)
-  createOrUpdateJob({jenkinsfilePath: filePath, jobName: filenameWithoutExt})
-}
 
-const createOrUpdateJob = ({jenkinsfilePath, jobName}) => {
-  fs
-    .readFile(jenkinsfilePath)
-    .then(file => file.toString())
+const updateJob = ({file, filenameWithoutExt}) =>
+  createOrUpdateJob({file, jobName: filenameWithoutExt})
+
+const createOrUpdateJob = ({file, jobName}) =>
+  file
     .then(content => jenkinsfile.toJobConfig({jenkinsfile: content}))
     .then(config => jenkinsApi.checkIfJobExists({jobName})
       .then(jobExists =>
@@ -26,12 +20,9 @@ const createOrUpdateJob = ({jenkinsfilePath, jobName}) => {
       )
     )
     .catch(log.error)
-}
 
-const deleteJob = ({filePath, filenameWithExt, filenameWithoutExt}) => {
-  log.debug(`File ${filenameWithExt} deleted...`)
+const deleteJob = ({filenameWithoutExt}) =>
   jenkinsApi.deleteJob({jobName: filenameWithoutExt})
-}
 
 module.exports = {
   createJob,
