@@ -4,7 +4,8 @@ const log = require('./log.js')
 
 const chokidarOptions = {
   ignored: /(^|[\/\\])\../,
-  persistent: true
+  persistent: true,
+  interval: 2000
 }
 
 const watch = ({dir}) => {
@@ -33,6 +34,7 @@ const getFilePromise = (filePath) =>
   fs
     .readFile(filePath)
     .then(file => file.toString())
+    .catch(err => Promise.resolve)
 
 
 const getFilenameWithoutExtension = (path) => getFilenameWithExtension(path).split('.')[0]
