@@ -1,5 +1,6 @@
 const log = require('../src/log.js')
 const colors = require('colors/safe')
+const config = require('../src/config.js')
 
 jest.mock('colors/safe')
 
@@ -20,12 +21,22 @@ describe('logger should', () => {
     expect(console.log).toHaveBeenCalledWith('12:10:10 MESSAGE')
   })
 
-  it('log debug in cyan', () => {
+  it('log debug in cyan when debug is enabled', () => {
+    config.isDebug = true
     colors.cyan = jest.fn(message => message)
 
     log.debug(MESSAGE)
 
     expect(console.log).toHaveBeenCalledWith('12:10:10 MESSAGE')
+  })
+
+  it('not log debug when debug is disabled', () => {
+    config.isDebug = false
+    colors.cyan = jest.fn(message => message)
+
+    log.debug(MESSAGE)
+
+    expect(console.log).not.toHaveBeenCalledWith('12:10:10 MESSAGE')
   })
 
   it('log warn in yellow', () => {
