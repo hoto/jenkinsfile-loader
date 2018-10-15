@@ -22,7 +22,6 @@ const breakdownFilePath = (handlerFn) => (filePath) => {
   return handlerFn({filePath, filenameWithExt, filenameWithoutExt})
 }
 
-
 const getFilenameWithExtension = (path) => path.split('/').pop()
 
 const getFilenameWithoutExtension = (path) => getFilenameWithExtension(path).split('.')[0]
