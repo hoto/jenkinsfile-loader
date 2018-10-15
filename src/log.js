@@ -1,11 +1,13 @@
 const colors = require('colors/safe')
+const config = require('./config.js')
 
 function info() {
   console.log(colors.green(format(arguments)))
 }
 
 function debug() {
-  console.log(colors.cyan(format(arguments)))
+  if (config.isDebug)
+    console.log(colors.cyan(format(arguments)))
 }
 
 function warn() {
