@@ -5,7 +5,11 @@ const log = require('./log.js')
 const chokidarOptions = {
   ignored: /(^|[\/\\])\../,
   persistent: true,
-  interval: 2000
+  interval: 2000,
+  awaitWriteFinish: {
+    stabilityThreshold: 1000,
+    pollInterval: 100
+  }
 }
 
 const watch = ({dir}) => {
