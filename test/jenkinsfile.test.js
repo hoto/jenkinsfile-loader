@@ -10,6 +10,7 @@ describe('jenkinsfile should', () => {
     const response = jenkinsfile.toJobConfig({jenkinsfile: pipelineCode})
 
     expect(response).toEqual(jobConfig)
+    expect(response.length).toBe(631)
   })
 })
 

@@ -10,6 +10,7 @@ describe('xmlSanitizer should', () => {
     const response = xmlSanitizer.sanitize({str: original})
 
     expect(response).toEqual(sanitized)
+    expect(response.length).toBe(215)
   })
 })
 
