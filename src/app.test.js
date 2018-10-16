@@ -10,8 +10,11 @@ const JENKINSFILES_DIR = 'JENKINSFILES_DIR'
 
 describe('app should', () => {
 
-  it('start watching jenkinsfiles directory', () => {
+  beforeEach(()=>{
     config.jenkinsfilesDir = JENKINSFILES_DIR
+  })
+
+  it('start watching jenkinsfiles directory', () => {
     watcher.watch = jest.fn(() => ({
       on: jest.fn().mockReturnThis()
     }))
@@ -22,18 +25,15 @@ describe('app should', () => {
   })
 
   it('create, update and delete jenkins job when jenkinsfile change state', () => {
-    config.jenkinsfilesDir = JENKINSFILES_DIR
-    const onMock = jest.fn().mockReturnThis()
-    watcher.watch = jest.fn(() => ({
-      on: onMock
-    }))
+    const on = jest.fn().mockReturnThis()
+    watcher.watch = jest.fn(() => ({on}))
 
     app.startWatching()
 
-    expect(onMock).toBeCalledWith('add', jenkins.createJob)
-    expect(onMock).toBeCalledWith('change', jenkins.updateJob)
-    expect(onMock).toBeCalledWith('unlink', jenkins.deleteJob)
-    expect(onMock).toHaveBeenCalledTimes(3)
+    expect(on).toBeCalledWith('add', jenkins.createJob)
+    expect(on).toBeCalledWith('change', jenkins.updateJob)
+    expect(on).toBeCalledWith('unlink', jenkins.deleteJob)
+    expect(on).toHaveBeenCalledTimes(3)
   })
 
 })
