@@ -22,7 +22,9 @@ const createOrUpdateJob = ({file, jobName}) =>
     .catch(log.error)
 
 const deleteJob = ({filenameWithoutExt}) =>
-  jenkinsApi.deleteJob({jobName: filenameWithoutExt})
+  jenkinsApi
+    .deleteJob({jobName: filenameWithoutExt})
+    .catch(log.error)
 
 module.exports = {
   createJob,
