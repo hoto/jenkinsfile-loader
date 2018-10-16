@@ -12,11 +12,11 @@ const updateJob = ({file, filenameWithoutExt}) =>
 const createOrUpdateJob = ({file, jobName}) =>
   file
     .then(content => jenkinsfile.toJobConfig({jenkinsfile: content}))
-    .then(config => jenkinsApi.checkIfJobExists({jobName})
+    .then(configXml => jenkinsApi.checkIfJobExists({jobName})
       .then(jobExists =>
         jobExists ?
-          jenkinsApi.updateJob({jobName, config}) :
-          jenkinsApi.createJob({jobName, config})
+          jenkinsApi.updateJob({jobName, configXml}) :
+          jenkinsApi.createJob({jobName, configXml})
       )
     )
     .catch(log.error)

@@ -14,22 +14,22 @@ const checkIfJobExists = ({jobName}) =>
       jobNamesObjects.reduce((nameA, nameB) => nameA.concat(nameB), []))
     .then(jobNames => (jobNames.indexOf(jobName) > -1))
 
-const updateJob = ({jobName, config}) => {
+const updateJob = ({jobName, configXml}) => {
   log.info(`Updating job ${jobName}...`)
   return axios({
     method: 'POST',
     headers: {'content-type': 'text/xml'},
-    data: config,
+    data: configXml,
     url: `${config.jenkinsUrl}/job/${jobName}/config.xml`
   })
 }
 
-const createJob = ({jobName, config}) => {
+const createJob = ({jobName, configXml}) => {
   log.info(`Creating job ${jobName}...`)
   return axios({
     method: 'POST',
     headers: {'content-type': 'text/xml'},
-    data: config,
+    data: configXml,
     url: `${config.jenkinsUrl}/createItem?name=${jobName}`
   })
 }
