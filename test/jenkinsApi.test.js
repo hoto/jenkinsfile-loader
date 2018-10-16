@@ -17,11 +17,16 @@ describe('jenkinsApi should', () => {
     config.jenkinsUrl = JENKINS_URL
   })
 
-  it('delete job', () => {
-    jenkinsApi.deleteJob({jobName: JOB_NAME})
+  it('update job', () => {
+    jenkinsApi.updateJob({jobName: JOB_NAME, configXml: JOB_CONFIG})
 
-    expect(log.info).toHaveBeenCalledWith('Deleting job JOB_NAME...')
-    expect(axios.post).toHaveBeenCalledWith('JENKINS_URL/job/JOB_NAME/doDelete')
+    expect(log.info).toHaveBeenCalledWith('Updating job JOB_NAME...')
+    expect(axios).toHaveBeenCalledWith({
+      method: 'POST',
+      headers: {'content-type': 'text/xml'},
+      data: 'JOB_CONFIG',
+      url: 'JENKINS_URL/job/JOB_NAME/config.xml'
+    })
   })
 
   it('create job', () => {
@@ -34,6 +39,13 @@ describe('jenkinsApi should', () => {
       data: 'JOB_CONFIG',
       url: 'JENKINS_URL/createItem?name=JOB_NAME'
     })
+  })
+
+  it('delete job', () => {
+    jenkinsApi.deleteJob({jobName: JOB_NAME})
+
+    expect(log.info).toHaveBeenCalledWith('Deleting job JOB_NAME...')
+    expect(axios.post).toHaveBeenCalledWith('JENKINS_URL/job/JOB_NAME/doDelete')
   })
 
 })
