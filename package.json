@@ -4,8 +4,8 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "start": "node src/app.js",
-    "test": "jest"
+    "start": "node src/main.js",
+    "test": "jest --verbose"
   },
   "author": "Andrzej Rehmann",
   "license": "MIT",
