@@ -2,7 +2,7 @@ FROM docker.io/node:8.12.0 AS build
 WORKDIR /usr/local/src
 COPY package.json .
 COPY yarn.lock .
-RUN yarn install --production --frozen-lockfile
+RUN yarn install --frozen-lockfile
 COPY . .
 
 FROM docker.io/node:8.12.0-alpine
