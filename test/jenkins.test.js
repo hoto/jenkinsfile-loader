@@ -39,6 +39,15 @@ describe('jenkins should', () => {
       .toHaveBeenCalledWith({jobName: JOB_NAME, configXml: CONFIG_XML})
   })
 
+  it('log error when creating or updating job fails', async () => {
+    const file = Promise.resolve()
+    jenkinsApi.checkIfJobExists = jest.fn(() => Promise.reject(ERROR_MESSAGE))
+
+    await jenkins.createJob({file, filenameWithoutExt: JOB_NAME})
+
+    expect(log.error).toHaveBeenCalledWith(ERROR_MESSAGE)
+  })
+
   it('delete job', async () => {
     jenkinsApi.deleteJob = jest.fn(() => Promise.resolve())
 
