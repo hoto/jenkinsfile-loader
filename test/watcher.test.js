@@ -30,6 +30,23 @@ describe('watcher should', () => {
       .toHaveBeenCalledWith({file: filePromise, filenameWithoutExt: FILE_NAME})
   })
 
+  it('read file from disk', async () => {
+    expect.assertions(1)
+    const filePromise = Promise.resolve(FILE_CONTENT)
+    fs.readFile = jest.fn(() => filePromise)
+    const onMock = jest.fn((eventName, handler) => handler(`PATH/${FILE_NAME}.groovy`))
+    const watchMock = {on: onMock}
+    chokidar.watch = jest.fn(() => watchMock)
+    let receivedFile
+    const eventHandler = ({file}) => receivedFile = file
+    const watch = watcher.watch({dir: DIRECTORY})
+    watch.on(EVENT_NAME, eventHandler)
+
+    await watchMock.on(EVENT_NAME, (filePath) => filePath)
+
+    await receivedFile.then((content) => expect(content).toBe(FILE_CONTENT))
+  })
+
   it('log event and file path', async () => {
     const filePromise = Promise.resolve(FILE_CONTENT)
     fs.readFile = jest.fn(() => filePromise)
