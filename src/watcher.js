@@ -13,12 +13,12 @@ const chokidarOptions = {
 }
 
 const watch = ({dir}) => {
-  const originalWatcher = chokidar.watch(dir, chokidarOptions)
+  const originalWatch = chokidar.watch(dir, chokidarOptions)
   const wrapper = {
-    on: (eventName, handlerFn) => {
-      originalWatcher.on(eventName, filePath => {
+    on: (eventName, handler) => {
+      originalWatch.on(eventName, filePath => {
         logEvent(eventName, filePath)
-        breakdownFilePath(handlerFn)(filePath)
+        breakdownFilePath(handler)(filePath)
       })
       return wrapper
     }
@@ -28,10 +28,10 @@ const watch = ({dir}) => {
 
 const logEvent = (eventName, filePath) => log.debug(`Watch event: ${eventName}, file: ${filePath}`)
 
-const breakdownFilePath = (handlerFn) => (filePath) => {
+const breakdownFilePath = (handler) => (filePath) => {
   const file = getFilePromise(filePath)
   const filenameWithoutExt = getFilenameWithoutExtension(filePath)
-  return handlerFn({file, filenameWithoutExt})
+  return handler({file, filenameWithoutExt})
 }
 
 const getFilePromise = (filePath) =>
