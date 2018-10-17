@@ -4,8 +4,8 @@ WORKDIR /usr/local/src
 
 COPY package.json .
 COPY yarn.lock .
-RUN yarn install --frozen-lockfile
+RUN yarn install --production --frozen-lockfile
 
 COPY . .
 
-CMD node src/app.js
+CMD node src/main.js
