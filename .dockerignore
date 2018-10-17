@@ -1,3 +1,7 @@
 .git
+.gitignore
+.gitattributes
+.editorconfig
 .idea/
 node_modules/
+
