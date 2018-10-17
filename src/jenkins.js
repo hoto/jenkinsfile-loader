@@ -8,7 +8,7 @@ const createJob = ({file, filenameWithoutExt}) =>
 const updateJob = ({file, filenameWithoutExt}) =>
   createOrUpdateJob({file, jobName: filenameWithoutExt})
 
-const createOrUpdateJob = ({file, jobName}) => {
+const createOrUpdateJob = ({file, jobName}) =>
   file
     .then(content => jenkinsfile.toJobConfig({jenkinsfile: content}))
     .then(configXml => jenkinsApi.checkIfJobExists({jobName})
@@ -19,13 +19,11 @@ const createOrUpdateJob = ({file, jobName}) => {
       )
     )
     .catch(log.error)
-}
 
-const deleteJob = ({filenameWithoutExt}) => {
+const deleteJob = ({filenameWithoutExt}) =>
   jenkinsApi
     .deleteJob({jobName: filenameWithoutExt})
     .catch(log.error)
-}
 
 module.exports = {
   createJob,
