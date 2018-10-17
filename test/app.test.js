@@ -3,7 +3,7 @@ let watcher = require('../src/watcher.js')
 const config = require('../src/config.js')
 const jenkins = require('../src/jenkins.js')
 
-jest.mock('./watcher.js')
+jest.mock('../src/watcher.js')
 jest.mock('../src/config.js')
 
 const JENKINSFILES_DIR = 'JENKINSFILES_DIR'
