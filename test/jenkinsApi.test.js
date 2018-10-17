@@ -29,6 +29,10 @@ describe('jenkinsApi should', () => {
     config.jenkinsUrl = JENKINS_URL
   })
 
+  afterEach(() => {
+    jest.resetAllMocks()
+  })
+
   it('returns false if job does not exists', async () => {
     const responseData = {
       jobs: [
