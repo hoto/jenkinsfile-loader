@@ -3,7 +3,7 @@ version: '3.5'
 
 services:
 
-  rapid-jenkinsfile-loader:
+  jenkinsfile-loader:
     build: .
     environment:
       JENKINS_URL: 'http://localhost:8080'

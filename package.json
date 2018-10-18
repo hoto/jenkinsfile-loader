@@ -1,7 +1,7 @@
 {
-  "name": "rapid-jenkinsfile-loader",
+  "name": "jenkinsfile-loader",
   "version": "1.0.0",
-  "description": "Loads Jenkinsfiles from disk as jobs in Jenkins instance.",
+  "description": "Creates Jenkins jobs from Jenkinsfiles read from disk.",
   "main": "src/app.js",
   "scripts": {
     "start": "node src/main.js",

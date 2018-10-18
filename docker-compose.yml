@@ -3,7 +3,7 @@ version: '3.5'
 
 services:
 
-  rapid-jenkinsfile-loader:
-    image: docker.io/hoto/rapid-jenkinsfile-loader:latest
+  jenkinsfile-loader:
+    image: docker.io/hoto/jenkinsfile-loader:latest
     build: .
 
