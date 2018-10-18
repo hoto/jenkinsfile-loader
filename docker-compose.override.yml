@@ -7,7 +7,7 @@ services:
     build: .
     environment:
       JENKINS_URL: 'http://localhost:8080'
-      JENKINSFILES_DIR: '/usr/local/src/jenkinsfile-examples'
+      JENKINSFILES_DIR: '/usr/local/src/jenkinsfiles'
       DEBUG: 'true'
     volumes:
     - type: bind
@@ -15,8 +15,8 @@ services:
       target: /usr/local/src/src
       read_only: true
     - type: bind
-      source: ${PWD}/jenkinsfile-examples
-      target: /usr/local/src/jenkinsfile-examples
+      source: ${PWD}/jenkinsfiles
+      target: /usr/local/src/jenkinsfiles
       read_only: true
     network_mode: host
     tty: true

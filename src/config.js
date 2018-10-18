@@ -1,5 +1,5 @@
 const defaultJenkinsUrl = 'http://localhost:8080';
-const defaultJenkinsfilesDir = process.cwd() + '/jenkinsfile-examples';
+const defaultJenkinsfilesDir = process.cwd() + '/jenkinsfiles';
 
 const config = {
   jenkinsUrl: process.env.JENKINS_URL || defaultJenkinsUrl,
