@@ -1,3 +1,4 @@
+[![CircleCI](https://circleci.com/gh/hoto/jenkinsfile-loader/tree/master.svg?style=svg)](https://circleci.com/gh/hoto/jenkinsfile-loader/tree/master)
 [![](https://images.microbadger.com/badges/image/hoto/jenkinsfile-loader.svg)](https://microbadger.com/images/hoto/jenkinsfile-loader "Get your own image badge on microbadger.com")
 # Jenkinsfile Loader
 
