@@ -9,7 +9,7 @@ const waitOnOptions = {
   interval: 1000,
   followAllRedirects: true,
   followRedirect: true,
-  window: 2000
+  window: 1000
 }
 
 const main = () => {
