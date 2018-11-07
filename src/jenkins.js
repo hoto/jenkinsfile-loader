@@ -3,10 +3,10 @@ const jenkinsfile = require('./jenkinsfile.js')
 const log = require('./log.js')
 
 const createJobFromConfig = ({file, filenameWithoutExt}) =>
-  createOrupdateJobFromConfig({file, jobName: filenameWithoutExt})
+  createOrUpdateJob({file, jobName: filenameWithoutExt, isConfigXml: true})
 
 const updateJobFromConfig = ({file, filenameWithoutExt}) =>
-  createOrupdateJobFromConfig({file, jobName: filenameWithoutExt})
+  createOrUpdateJob({file, jobName: filenameWithoutExt, isConfigXml: true})
 
 const createJob = ({file, filenameWithoutExt}) =>
   createOrUpdateJob({file, jobName: filenameWithoutExt})
@@ -14,20 +14,11 @@ const createJob = ({file, filenameWithoutExt}) =>
 const updateJob = ({file, filenameWithoutExt}) =>
   createOrUpdateJob({file, jobName: filenameWithoutExt})
 
-const createOrupdateJobFromConfig = ({file, jobName}) =>
+const createOrUpdateJob = ({file, jobName, isConfigXml}) =>
   file
-    .then(configXml => jenkinsApi.checkIfJobExists({jobName})
-      .then(jobExists =>
-        jobExists ?
-          jenkinsApi.updateJob({jobName, configXml}) :
-          jenkinsApi.createJob({jobName, configXml})
-      )
+    .then(content =>
+      isConfigXml ? content : jenkinsfile.toJobConfig({jenkinsfile: content})
     )
-    .catch(log.error)
-
-const createOrUpdateJob = ({file, jobName}) =>
-  file
-    .then(content => jenkinsfile.toJobConfig({jenkinsfile: content}))
     .then(configXml => jenkinsApi.checkIfJobExists({jobName})
       .then(jobExists =>
         jobExists ?
