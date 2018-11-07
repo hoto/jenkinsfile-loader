@@ -2,7 +2,7 @@
 [![](https://images.microbadger.com/badges/image/hoto/jenkinsfile-loader.svg)](https://microbadger.com/images/hoto/jenkinsfile-loader "Get your own image badge on microbadger.com")
 # Jenkinsfile Loader
 
-Creates Jenkins jobs from Jenkinsfiles read from disk.
+Creates Jenkins jobs from Jenkinsfiles and XML Configs read from disk.
 Part of [jenkinsfile-examples](https://github.com/hoto/jenkinsfile-examples)
 
 Usage:
