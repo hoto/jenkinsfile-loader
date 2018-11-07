@@ -8,10 +8,10 @@ const createJobFromConfig = ({file, filenameWithoutExt}) =>
 const updateJobFromConfig = ({file, filenameWithoutExt}) =>
   createOrUpdateJob({file, jobName: filenameWithoutExt, isConfigXml: true})
 
-const createJob = ({file, filenameWithoutExt}) =>
+const createJobFromJenkinsfile = ({file, filenameWithoutExt}) =>
   createOrUpdateJob({file, jobName: filenameWithoutExt})
 
-const updateJob = ({file, filenameWithoutExt}) =>
+const updateJobFromJenkinsfile = ({file, filenameWithoutExt}) =>
   createOrUpdateJob({file, jobName: filenameWithoutExt})
 
 const createOrUpdateJob = ({file, jobName, isConfigXml}) =>
@@ -36,7 +36,7 @@ const deleteJob = ({filenameWithoutExt}) =>
 module.exports = {
   createJobFromConfig,
   updateJobFromConfig,
-  createJob,
-  updateJob,
+  createJobFromJenkinsfile,
+  updateJobFromJenkinsfile,
   deleteJob
 }
