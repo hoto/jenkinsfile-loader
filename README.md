@@ -11,6 +11,7 @@ Usage:
 | ----------------- | ----------- |
 | JENKINS_URL       | URL to a jenkins instance without authentication.  |
 | JENKINSFILES_DIR  | Full path to directory where Jenkinsfiles are located.  |
+| CONFIGS_XML_DIR   | Full path to directory where Config XMLs are located.  |
 | DEBUG             | Enable debug mode by setting to 'true'  |
 
 Run with nodejs:
