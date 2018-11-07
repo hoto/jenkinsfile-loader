@@ -28,7 +28,7 @@ describe('jenkins should', () => {
     it('create job when it does not exist', async () => {
       jenkinsApi.checkIfJobExists = jest.fn(() => Promise.resolve(false))
 
-      await jenkins.createJobFromConfigXml({file: xmlFile, filenameWithoutExt: JOB_NAME})
+      await jenkins.createJobFromConfig({file: xmlFile, filenameWithoutExt: JOB_NAME})
 
       expect(jenkinsApi.createJob)
         .toHaveBeenCalledWith({jobName: JOB_NAME, configXml: CONFIG_XML})
@@ -37,7 +37,7 @@ describe('jenkins should', () => {
     it('update job when it does exist', async () => {
       jenkinsApi.checkIfJobExists = jest.fn(() => Promise.resolve(true))
 
-      await jenkins.createJobFromConfigXml({file: xmlFile, filenameWithoutExt: JOB_NAME})
+      await jenkins.updateJobFromConfig({file: xmlFile, filenameWithoutExt: JOB_NAME})
 
       expect(jenkinsApi.updateJob)
         .toHaveBeenCalledWith({jobName: JOB_NAME, configXml: CONFIG_XML})
@@ -46,7 +46,7 @@ describe('jenkins should', () => {
     it('log error when creating or updating job fails', async () => {
       jenkinsApi.checkIfJobExists = jest.fn(() => Promise.reject(ERROR_MESSAGE))
 
-      await jenkins.createJobFromConfigXml({file: xmlFile, filenameWithoutExt: JOB_NAME})
+      await jenkins.createJobFromConfig({file: xmlFile, filenameWithoutExt: JOB_NAME})
 
       expect(log.error).toHaveBeenCalledWith(ERROR_MESSAGE)
     })
