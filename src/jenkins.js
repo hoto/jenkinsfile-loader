@@ -2,11 +2,25 @@ const jenkinsApi = require('./jenkinsApi.js')
 const jenkinsfile = require('./jenkinsfile.js')
 const log = require('./log.js')
 
+const createJobFromConfigXml = ({file, filenameWithoutExt}) =>
+  createOrUpdateJobFromConfigXml({file, jobName: filenameWithoutExt})
+
 const createJob = ({file, filenameWithoutExt}) =>
   createOrUpdateJob({file, jobName: filenameWithoutExt})
 
 const updateJob = ({file, filenameWithoutExt}) =>
   createOrUpdateJob({file, jobName: filenameWithoutExt})
+
+const createOrUpdateJobFromConfigXml = ({file, jobName}) =>
+  file
+    .then(configXml => jenkinsApi.checkIfJobExists({jobName})
+      .then(jobExists =>
+        jobExists ?
+          jenkinsApi.updateJob({jobName, configXml}) :
+          jenkinsApi.createJob({jobName, configXml})
+      )
+    )
+    .catch(log.error)
 
 const createOrUpdateJob = ({file, jobName}) =>
   file
@@ -26,6 +40,7 @@ const deleteJob = ({filenameWithoutExt}) =>
     .catch(log.error)
 
 module.exports = {
+  createJobFromConfigXml,
   createJob,
   updateJob,
   deleteJob
