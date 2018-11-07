@@ -54,8 +54,8 @@ describe('app should', () => {
 
     app.startWatching()
 
-    expect(on).toBeCalledWith('add', jenkins.createJob)
-    expect(on).toBeCalledWith('change', jenkins.updateJob)
+    expect(on).toBeCalledWith('add', jenkins.createJobFromJenkinsfile)
+    expect(on).toBeCalledWith('change', jenkins.updateJobFromJenkinsfile)
     expect(on).toBeCalledWith('unlink', jenkins.deleteJob)
     expect(on).toHaveBeenCalledTimes(6)
   })

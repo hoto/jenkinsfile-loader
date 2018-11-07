@@ -9,8 +9,8 @@ const startWatching = () => {
     .on('unlink', jenkins.deleteJob)
 
   watcher.watch({dir: config.jenkinsfilesDir})
-    .on('add', jenkins.createJob)
-    .on('change', jenkins.updateJob)
+    .on('add', jenkins.createJobFromJenkinsfile)
+    .on('change', jenkins.updateJobFromJenkinsfile)
     .on('unlink', jenkins.deleteJob)
 }
 
